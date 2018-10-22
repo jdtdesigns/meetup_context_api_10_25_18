@@ -3,7 +3,7 @@ import './App.css';
 
 // Redux
 import { connect } from 'react-redux';
-import { updateUniversity, updateJoke } from './';
+import { updateUniversity, getJoke } from './';
 
 
 const Student = connect(
@@ -25,12 +25,12 @@ const Student = connect(
 
 
 const Class = connect(
-  state => ({ uni_name: state.uni_name, joke: state.joke }) // mapStateToProps
+  state => ({ uni_name: state.uni_name, joke: state.joke, loading: state.loading }) // mapStateToProps
 )(props => (
   <Fragment>
     <h3>December class at {props.uni_name}</h3>
-
-    <p dangerouslySetInnerHTML={{ __html: props.joke }}></p>
+    
+    {props.loading ? <i className="fa fa-spinner fa-spin"></i> : <p dangerouslySetInnerHTML={{ __html: props.joke }}></p>}
 
     <Student />
   </Fragment>
@@ -38,7 +38,9 @@ const Class = connect(
 
 
 class University extends Component {
-  componentDidMount = () => this.props.getJoke();
+  componentDidMount = () => {
+    this.props.getJoke();
+  };
 
   render() {
     return (
@@ -57,15 +59,9 @@ const mapStateToProps = state => ({
 });
 
 // #6-B -- connect actions and/or dispatches with the component
-const mapDispatchesToProps = dispatch => ({
-  getJoke() {
-    fetch('http://api.icndb.com/jokes/random?limitTo=[nerdy]')
-      .then(res => res.json())
-      .then(({ value: { joke } }) => {
-        dispatch(updateJoke(joke));
-      });
-  }
-});
+const mapDispatchesToProps = {
+  getJoke
+};
 
 // #6 -- Connect component to store
 export default connect(mapStateToProps, mapDispatchesToProps)(University);
