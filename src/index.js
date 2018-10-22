@@ -9,20 +9,24 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 // #4
-// Action Types
+  // Action Types
 const UPDATE_UNIVERSITY = 'UPDATE_UNIVERSITY';
-const UPDATE_QUOTE = 'UPDATE_QUOTE';
+const UPDATE_JOKE = 'UPDATE_JOKE';
 
-// Actions
-export const updateUniversity = payload => ({
-  type: UPDATE_UNIVERSITY,
-  payload
-});
+  // Actions
+export function updateUniversity(university) {
+  return {
+    type: UPDATE_UNIVERSITY,
+    payload: university
+  }
+};
 
-export const updateQuote = payload => ({
-  type: UPDATE_QUOTE,
-  payload
-});
+export function updateJoke(joke) {
+  return {
+    type: UPDATE_JOKE,
+    payload: joke
+  }
+};
 
 
 
@@ -33,12 +37,12 @@ const initial_state = {
 }
 
 // #2
-const reducer = (state = initial_state, {type, payload}) => {
-  switch(type) {
+const reducer = (state = initial_state, action) => {
+  switch(action.type) {
     case UPDATE_UNIVERSITY:
-      return {...state, uni_name: payload}
-    case UPDATE_QUOTE:
-      return { ...state, quote: payload }
+      return { ...state, uni_name: action.payload };
+    case UPDATE_JOKE:
+      return { ...state, joke: action.payload };
     default: return state;
   }
 }
