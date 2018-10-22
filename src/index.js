@@ -1,36 +1,53 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-// Types
-const UPDATE_TITLE = 'UPDATE_TITLE';
+// Redux Imports
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+// #4
+// Action Types
+const UPDATE_UNIVERSITY = 'UPDATE_UNIVERSITY';
+const UPDATE_QUOTE = 'UPDATE_QUOTE';
 
 // Actions
-export const updateTitle = payload => ({
-  type: UPDATE_TITLE,
+export const updateUniversity = payload => ({
+  type: UPDATE_UNIVERSITY,
   payload
 });
 
+export const updateQuote = payload => ({
+  type: UPDATE_QUOTE,
+  payload
+});
+
+
+
+// #1
 const initial_state = {
-  title: 'Redux Example'
+  uni_name: 'Georgia Tech',
+  quote: ''
 }
 
-
-const reducer = (state = initial_state , {type, payload}) => {
+// #2
+const reducer = (state = initial_state, {type, payload}) => {
   switch(type) {
-    case UPDATE_TITLE:
-      return {...state, title: payload}
+    case UPDATE_UNIVERSITY:
+      return {...state, uni_name: payload}
+    case UPDATE_QUOTE:
+      return { ...state, quote: payload }
     default: return state;
   }
 }
 
+// #3
 const store = createStore(reducer);
 
 ReactDOM.render((
+  // #5 PROVIDE our app with the store
   <Provider store={store}>
     <App />
   </Provider>
