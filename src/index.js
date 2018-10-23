@@ -5,11 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 // Redux Imports
+// #1
 import { createStore, applyMiddleware } from 'redux';
+// #2
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-// #4
+// #6
   // Action Types
 const UPDATE_UNIVERSITY = 'UPDATE_UNIVERSITY';
 const UPDATE_JOKE = 'UPDATE_JOKE';
@@ -37,7 +39,7 @@ function updateLoading(val) {
   }
 };
 
-  // Async Actions
+  // Async Actions -- Thunk middleware gives us this functionality
 export function getJoke() {
   return async dispatch => {
     const res = await fetch('http://api.icndb.com/jokes/random?limitTo=[nerdy]')
@@ -50,14 +52,14 @@ export function getJoke() {
   
 
 
-// #1
+// #3
 const initial_state = {
   uni_name: 'Georgia Tech',
   quote: '',
   loading: 1
 }
 
-// #2
+// #4
 const reducer = (state = initial_state, action) => {
   switch(action.type) {
     case UPDATE_UNIVERSITY:
@@ -70,11 +72,11 @@ const reducer = (state = initial_state, action) => {
   }
 }
 
-// #3
+// #5
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render((
-  // #5 PROVIDE our app with the store
+  // #7 PROVIDE our app with the store
   <Provider store={store}>
     <App />
   </Provider>
