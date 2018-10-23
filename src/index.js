@@ -39,13 +39,12 @@ function updateLoading(val) {
 
   // Async Actions
 export function getJoke() {
-  return dispatch => {
-    fetch('http://api.icndb.com/jokes/random?limitTo=[nerdy]')
-      .then(res => res.json())
-      .then(({ value: { joke } }) => {
-        dispatch(updateJoke(joke));
-        dispatch(updateLoading(0));
-      });
+  return async dispatch => {
+    const res = await fetch('http://api.icndb.com/jokes/random?limitTo=[nerdy]')
+    const { value: { joke } } = await res.json();
+
+    dispatch(updateJoke(joke));
+    dispatch(updateLoading(0));
   }
 }
   
