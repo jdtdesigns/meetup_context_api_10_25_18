@@ -7,7 +7,7 @@ import { updateUniversity, getJoke } from './';
 
 
 const Student = connect(
-  state => ({ uni_name: state.uni_name, joke: state.joke }), // mapStateToProps
+  state => ({ uni_name: state.uni_name }), // mapStateToProps
   { updateUniversity } // mapDispatchesToProps
 )(props => (
   <Fragment>
