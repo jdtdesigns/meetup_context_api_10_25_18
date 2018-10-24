@@ -1,7 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
 
-class App extends Component {
+const Student = props => (
+  <Fragment>
+
+  </Fragment>
+);
+
+class University extends Component {
   render() {
     return (
       <Fragment>
@@ -11,4 +17,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default University;
